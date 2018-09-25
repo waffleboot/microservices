@@ -45,7 +45,7 @@ public class CustomerProfilePhotoRestController {
 	}
 	
 	@GetMapping
-	ResponseEntity<Resource> read(@PathVariable Long id) throws CustomerNotFoundException {
+	ResponseEntity<Resource> read(@PathVariable Long id) {
 		return customerRepository.findById(id).map(c -> {
 			File file = fileFor(c);
 			Assert.isTrue(file.exists(),String.format("file-not-found %s", file.getAbsolutePath()));
@@ -54,7 +54,7 @@ public class CustomerProfilePhotoRestController {
 		}).orElseThrow(() -> new CustomerNotFoundException(id));
 	}
 	
-	private ResponseEntity<?> copy(Long id, MultipartFile file) throws CustomerNotFoundException {
+	private ResponseEntity<?> copy(Long id, MultipartFile file) {
 		return customerRepository.findById(id).map(c -> {
      	   File fileForCustomer = fileFor(c);
      	   try (InputStream in = file.getInputStream(); OutputStream out = new FileOutputStream(fileForCustomer)) {
@@ -69,7 +69,7 @@ public class CustomerProfilePhotoRestController {
 	}
 	
 	@RequestMapping(method = {RequestMethod.POST,RequestMethod.PUT})
-	Callable<ResponseEntity<?>> write(@PathVariable Long id, @RequestParam MultipartFile file) throws CustomerNotFoundException {
+	Callable<ResponseEntity<?>> write(@PathVariable Long id, @RequestParam MultipartFile file) {
 		log.info(String.format("upload-start /customers/%s/photo (%s bytes)", id, file.getSize()));
 		return () -> copy(id,file);
 	}

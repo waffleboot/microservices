@@ -1,6 +1,6 @@
 package com.example;
 
-public class CustomerNotFoundException extends Exception {
+public class CustomerNotFoundException extends RuntimeException {
 
 	private final Long id;
 	
