@@ -16,8 +16,8 @@ eureka:
 
 spring:
   profiles: united-states
-application:
-  name: eureka-server-clustered
+  application:
+    name: eureka-server-clustered
 server:
   port: 9000
 eureka:
@@ -26,13 +26,15 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://eureka-fr:${server.port}/eureka/,http://eureka-vn:${server.port}/eureka/
+  server:
+    enableSelfPreservation: false
 
 ---
 
 spring:
   profiles: france
-application:
-  name: eureka-server-clustered
+  application:
+    name: eureka-server-clustered
 server:
   port: 9000
 eureka:
@@ -41,13 +43,15 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://eureka-us:${server.port}/eureka/,http://eureka-vn:${server.port}/eureka/
+  server:
+    enableSelfPreservation: false
 
 ---
 
 spring:
   profiles: vietnam
-application:
-  name: eureka-server-clustered
+  application:
+    name: eureka-server-clustered
 server:
   port: 9000
 eureka:
@@ -56,3 +60,5 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://eureka-us:${server.port}/eureka/,http://eureka-fr:${server.port}/eureka/
+  server:
+    enableSelfPreservation: false

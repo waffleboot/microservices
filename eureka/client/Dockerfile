@@ -1,8 +1,5 @@
 FROM java
 
-ADD target/eureka-0.0.1-SNAPSHOT.jar /eureka.jar
+ADD target/eureka-client-0.0.1-SNAPSHOT.jar /eureka-client.jar
 
-CMD java -jar /eureka.jar
-
-EXPOSE 9000
-
+CMD java -jar /eureka-client.jar

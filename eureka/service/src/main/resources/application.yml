@@ -1,0 +1,48 @@
+
+spring:
+  profiles: united-states
+  application:
+    name: hello
+server:
+  port: 9000
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    metadataMap:
+      zone: zone1
+    instanceId: ${spring.application.name}:${random.value}
+    hostname: load-balancer
+    nonSecurePort: 80
+  client:
+    lease:
+      duration: 5
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-us:9000/eureka/
+
+---
+
+spring:
+  profiles: france
+  application:
+    name: hello
+server:
+  port: 9000
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    metadataMap:
+      zone: zone2
+    instanceId: ${spring.application.name}:${random.value}
+    hostname: load-balancer
+    nonSecurePort: 80
+  client:
+    lease:
+      duration: 5
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-fr:9000/eureka/
